@@ -19,8 +19,6 @@ package com.fluid.customisation.preference;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import androidx.preference.SwitchPreference;
-
 public class SystemSettingSwitchPreference extends SwitchPreference {
 
     public SystemSettingSwitchPreference(Context context, AttributeSet attrs, int defStyle) {

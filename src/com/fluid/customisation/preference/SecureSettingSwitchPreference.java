@@ -19,7 +19,6 @@ package com.fluid.customisation.preference;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import androidx.preference.SwitchPreference;
 
 public class SecureSettingSwitchPreference extends SwitchPreference {
 
