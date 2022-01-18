@@ -33,4 +33,6 @@
     <color name="theme_selector_unselected">#17000000</color>
     <color name="theme_selector_icon">#121212</color>
 
+    <color name="option_border_default">#5f6368</color>
+
 </resources>

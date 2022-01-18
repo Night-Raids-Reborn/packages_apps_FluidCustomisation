@@ -81,4 +81,20 @@
             android:summary="@string/recents_style_info_title" />
 
     </PreferenceCategory>
+
+    <!-- Signal icon style -->
+    <Preference
+        android:key="android.theme.customization.signal_icon"
+        android:icon="@drawable/ic_signal"
+        android:title="@string/signal_style_title"
+        android:summary="@string/signal_style_summary"
+        android:fragment="com.fluid.customisation.fragments.SignalIcons"/>
+
+    <!-- Wifi icon style -->
+    <Preference
+        android:key="android.theme.customization.wifi_icon"
+        android:icon="@drawable/ic_wifi"
+        android:title="@string/wifi_style_title"
+        android:summary="@string/wifi_style_summary"
+        android:fragment="com.fluid.customisation.fragments.WifiIcons"/>
 </PreferenceScreen>
