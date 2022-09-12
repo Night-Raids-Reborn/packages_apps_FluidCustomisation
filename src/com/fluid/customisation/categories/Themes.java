@@ -20,6 +20,8 @@ package com.fluid.customisation.categories;
 import static android.os.UserHandle.USER_CURRENT;
 import static com.fluid.customisation.fragments.SystemTheme.SETTINGS_ACTIVE_OVERLAY_KEY;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.os.Bundle;
@@ -30,6 +32,7 @@ import androidx.preference.Preference.OnPreferenceChangeListener;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.preference.ListPreference;
 
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
 import com.android.settings.dashboard.DashboardFragment;
@@ -38,6 +41,8 @@ import com.android.settingslib.core.AbstractPreferenceController;
 import com.android.settingslib.core.lifecycle.Lifecycle;
 
 import com.android.settings.R;
+import com.android.internal.util.fluid.PackageUtils;
+import com.android.internal.util.fluid.FluidUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,12 +60,14 @@ public class Themes extends DashboardFragment implements OnPreferenceChangeListe
     private static final String DEFAULT_CLOCK = "com.android.keyguard.clock.DefaultClockController";
 
     private static final String KEY_SYSTEM_THEME = "system_icons";
+    private static final String NAVIGATION_BAR_RECENTS_STYLE = "navbar_recents_style";
 
     private ContentResolver mResolver;
 
     private ListPreference mLockClockStyles;
     private Preference mSystemTheme;
     private Context mContext;
+    private ListPreference mNavbarRecentsStyle;
 
     @Override
     public int getMetricsCategory() {
@@ -84,6 +91,15 @@ public class Themes extends DashboardFragment implements OnPreferenceChangeListe
         mLockClockStyles.setValue(mLockClockStylesValue);
         mLockClockStyles.setSummary(mLockClockStyles.getEntry());
         mLockClockStyles.setOnPreferenceChangeListener(this);
+
+        mNavbarRecentsStyle = (ListPreference) findPreference(NAVIGATION_BAR_RECENTS_STYLE);
+        int recentsStyle = Settings.System.getInt(getContentResolver(),
+                Settings.System.OMNI_NAVIGATION_BAR_RECENTS, 0);
+
+        mNavbarRecentsStyle.setValue(Integer.toString(recentsStyle));
+        mNavbarRecentsStyle.setSummary(mNavbarRecentsStyle.getEntry());
+        mNavbarRecentsStyle.setOnPreferenceChangeListener(this);
+        
     }
 
     @Override
@@ -97,9 +113,55 @@ public class Themes extends DashboardFragment implements OnPreferenceChangeListe
             int index = mLockClockStyles.findIndexOfValue((String) newValue);
             mLockClockStyles.setSummary(mLockClockStyles.getEntries()[index]);
             return true;
+        } else if (preference == mNavbarRecentsStyle) {
+            int value = Integer.valueOf((String) newValue);
+            if (value == 1) {
+                if (!isOmniSwitchInstalled()){
+                    doOmniSwitchUnavail();
+                } else if (!FluidUtils.isOmniSwitchRunning(getActivity())) {
+                    doOmniSwitchConfig();
+                }
+            }
+            int index = mNavbarRecentsStyle.findIndexOfValue((String) newValue);
+            mNavbarRecentsStyle.setSummary(mNavbarRecentsStyle.getEntries()[index]);
+            Settings.System.putInt(getContentResolver(), Settings.System.OMNI_NAVIGATION_BAR_RECENTS, value);
+            return true;
         }
         return false;
 
+    }
+
+  private void checkForOmniSwitchRecents() {
+        if (!isOmniSwitchInstalled()){
+            doOmniSwitchUnavail();
+        } else if (!FluidUtils.isOmniSwitchRunning(getActivity())) {
+            doOmniSwitchConfig();
+        }
+    }
+
+    private void doOmniSwitchConfig() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        alertDialogBuilder.setTitle(R.string.omniswitch_title);
+        alertDialogBuilder.setMessage(R.string.omniswitch_dialog_running_new)
+            .setPositiveButton(R.string.omniswitch_settings, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog,int id) {
+                    startActivity(FluidUtils.INTENT_LAUNCH_APP);
+                }
+            });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    private void doOmniSwitchUnavail() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        alertDialogBuilder.setTitle(R.string.omniswitch_title);
+        alertDialogBuilder.setMessage(R.string.omniswitch_dialog_unavail);
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    private boolean isOmniSwitchInstalled() {
+        return PackageUtils.isAvailableApp(FluidUtils.APP_PACKAGE_NAME, getActivity());
     }
 
     @Override
