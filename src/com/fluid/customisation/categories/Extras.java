@@ -24,15 +24,21 @@ import android.os.Bundle;
 import android.os.UserHandle;
 import androidx.preference.*;
 import android.provider.Settings;
+import android.os.Handler;
+import java.net.InetAddress;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
 import com.android.settings.Utils;
 
+
 public class Extras extends SettingsPreferenceFragment implements Preference.OnPreferenceChangeListener {
 
     public static final String TAG = "Extras";
+    private static final String PREF_ADBLOCK = "persist.aicp.hosts_block";
+
+    private Handler mHandler = new Handler();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,7 +49,7 @@ public class Extras extends SettingsPreferenceFragment implements Preference.OnP
         setRetainInstance(true);
 
         ContentResolver resolver = getActivity().getContentResolver();
-
+        findPreference(PREF_ADBLOCK).setOnPreferenceChangeListener(this); 
 
     }
 
@@ -64,6 +70,16 @@ public class Extras extends SettingsPreferenceFragment implements Preference.OnP
 
     public boolean onPreferenceChange(Preference preference, Object objValue) {
         final String key = preference.getKey();
-        return true;
-    }
+        if (PREF_ADBLOCK.equals(preference.getKey())) {
+            // Flush the java VM DNS cache to re-read the hosts file.
+            // Delay to ensure the value is persisted before we refresh
+            mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        InetAddress.clearDnsCache();
+                    }
+            }, 1000);
+            return true;
+        }
+        return false;
 }

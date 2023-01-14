@@ -69,4 +69,10 @@
         android:summary="@string/incall_vibrate_disconnect_summary"
         android:defaultValue="false" />
 
+
+        <com.fluid.customisation.preference.SystemPropSwitchPreference
+            android:key="persist.aicp.hosts_block"
+            android:title="@string/hosts_block_title"
+            android:summary="@string/hosts_block_summary"
+            android:defaultValue="false" />
 </PreferenceScreen>

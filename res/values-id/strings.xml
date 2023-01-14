@@ -182,4 +182,8 @@
     <string name="lock_screen_custom_clock_face_samsung_highlight">Samsung (berwarna)</string>
     <string name="lock_screen_custom_clock_face_typographic">Tipografi</string>
     <string name="lock_screen_custom_clock_face_fluid">Fluid</string>
+
+    <!-- ad-blocker -->
+    <string name="hosts_block_title">Blokir Iklan</string>
+    <string name="hosts_block_summary">Blokir iklan dengan file host yang dimodifikasi. Matikan untuk menggunakan solusi pihak ketiga atau jika app menyebabkan masalah.</string>
 </resources>
