@@ -82,4 +82,5 @@ public class Extras extends SettingsPreferenceFragment implements Preference.OnP
             return true;
         }
         return false;
+    }
 }
