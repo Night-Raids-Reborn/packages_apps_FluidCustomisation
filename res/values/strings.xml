@@ -190,7 +190,7 @@
     <!-- ad-blocker -->
     <string name="hosts_block_title">Ad-block</string>
     <string name="hosts_block_summary">Block ads with a modified hosts file. Turn off to use third party solutions or if apps cause issues.</string>
-    
+
     <!-- Omni Switch -->
     <string name="keys_action_app_switch_defaut">Default</string>
     <string name="keys_action_omniswitch_short">OmniSwitch</string>
@@ -200,4 +200,8 @@
     <string name="omniswitch_dialog_unavail">OmniSwitch is not installed.</string>
     <string name="omniswitch_title">Recents style</string>
     <string name="recents_style_info_title">Only valid if 3-button navigation mode is used.</string>
+
+    <!--  Application downgrade -->
+    <string name="app_downgrade_title">Allow application downgrade</string>
+    <string name="app_downgrade_summary">This allows you to downgrade applications. Note that this may lead to crashes and data corruption.</string>
 </resources>

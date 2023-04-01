@@ -186,4 +186,8 @@
     <!-- ad-blocker -->
     <string name="hosts_block_title">Blokir Iklan</string>
     <string name="hosts_block_summary">Blokir iklan dengan file host yang dimodifikasi. Matikan untuk menggunakan solusi pihak ketiga atau jika app menyebabkan masalah.</string>
+
+    <!--  Application downgrade -->
+    <string name="app_downgrade_title">Izinkan downgrade aplikasi</string>
+    <string name="app_downgrade_summary">Ini memungkinkan Anda untuk menurunkan versi aplikasi. Perhatikan bahwa ini dapat menyebabkan kerusakan dan kerusakan data.</string>
 </resources>
