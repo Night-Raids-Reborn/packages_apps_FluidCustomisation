@@ -190,4 +190,8 @@
     <!--  Application downgrade -->
     <string name="app_downgrade_title">Izinkan downgrade aplikasi</string>
     <string name="app_downgrade_summary">Ini memungkinkan Anda untuk menurunkan versi aplikasi. Perhatikan bahwa ini dapat menyebabkan kerusakan dan kerusakan data.</string>
+
+    <!-- Ignore window secure -->
+    <string name="ignore_window_secure_title">Ignore window secure flags</string>
+    <string name="ignore_window_secure_summary">Ini menghilangkan batas tangkapan layar dan rekaman layar untuk semua aplikasi. Biasanya, aplikasi khusus diganti dengan area hitam dalam catatan. Ini bisa nyaman dalam beberapa kasus tetapi dapat menyebabkan kebocoran privasi. Setelah mengubah toggle ini, Anda mungkin perlu memulai ulang aplikasi agar perubahan diterapkan.</string>
 </resources>
