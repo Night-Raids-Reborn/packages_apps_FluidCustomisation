@@ -44,6 +44,12 @@
             android:dependency="statusbar_clock"
             android:defaultValue="false" />
 
+        <com.fluid.customisation.preference.SystemSettingSwitchPreference
+            android:key="statusbar_clock_chip"
+            android:title="@string/status_bar_show_clock_bg"
+            android:dependency="statusbar_clock"
+            android:defaultValue="true" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
