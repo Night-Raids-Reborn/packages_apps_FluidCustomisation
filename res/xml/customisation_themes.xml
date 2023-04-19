@@ -29,12 +29,6 @@
         android:icon="@drawable/ic_fluid_primary" />
 
     <ListPreference
-        android:key="android.theme.customization.accent_color"
-        android:title="@string/accent_prebuilt"
-        android:summary="@string/accent_prebuilt_summary"
-        android:icon="@drawable/ic_fluid_accent" />
-
-    <ListPreference
         android:key="android.theme.customization.adaptive_icon_shape"
         android:title="@string/theme_customization_icon_shape_title"
         android:icon="@drawable/ic_fluid_adaptive_icon" />
